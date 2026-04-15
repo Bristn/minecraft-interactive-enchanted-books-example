@@ -1,0 +1,24 @@
+[
+  {
+    "enchantment": "enchantment.interactive_enchanted_books_example.example_enchantment",
+    "parameters": [
+      [
+        /* Enchantment level */
+        {
+          "name": "level"
+        },
+        {
+          "name": "exampleValue",
+          "transformer": "interactive_enchanted_books:example_level_transform"
+        }
+      ],
+      [
+        /* First LevelBasedValue */
+        {
+          "name": "knockback"
+        }
+      ]
+    ],
+    "particle": "interactive_enchanted_books_example:example_particle"
+  }
+]

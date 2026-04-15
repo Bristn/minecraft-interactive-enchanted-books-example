@@ -2,6 +2,7 @@ package net.bristn.interactive_enchanted_books_example.tag.generator;
 
 import java.util.concurrent.CompletableFuture;
 
+import net.bristn.interactive_enchanted_books_example.item.ModItems;
 import net.bristn.interactive_enchanted_books_example.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -16,6 +17,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(Provider registries) {
-        valueLookupBuilder(ModItemTags.EXAMPLE_GROUP).add(Items.BOW).setReplace(false);
+        valueLookupBuilder(ModItemTags.EXAMPLE_GROUP).add(Items.BOW).add(ModItems.EXAMPLE_ITEM).setReplace(false);
     }
 }

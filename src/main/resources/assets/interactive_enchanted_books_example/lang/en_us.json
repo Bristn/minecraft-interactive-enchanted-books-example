@@ -1,3 +1,6 @@
 {
-    "enchantment.minecraft.wind_burst.desc.level-x": "After performing a smash attack, the player is launched upwards by {distance} blocks"
+    "tag.item.interactive_enchanted_books_example.example_group": "Example item group",
+    "item.interactive_enchanted_books_example.example_item": "Example item",
+    "enchantment.interactive_enchanted_books_example.example_enchantment": "Example enchantment",
+    "enchantment.interactive_enchanted_books_example.example_enchantment.desc.level-x": "Value transformer: \n> 5 x {level} = {exampleValue}. \nLevel based value: \n> {knockback}"
 }

@@ -22,7 +22,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"interactive-enchanted-books-example" {
+		"interactive_enchanted_books_example" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

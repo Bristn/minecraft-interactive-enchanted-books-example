@@ -1,8 +1,0 @@
-[
-  {
-    "enchantment": "enchantment.minecraft.aqua_affinity",
-    "priority": 0,
-    "parameters": [{ "name": "multiplier" }],
-    "particle": "interactive-enchanted-books-example:curse_particle"
-  }
-]
