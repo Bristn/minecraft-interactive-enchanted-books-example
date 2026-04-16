@@ -56,8 +56,6 @@ If the custom enchantment is applied to modded items which are not covered by a 
 2. Add an entry for each `TagKey<Item>` you which to add an icon for
    - The `tag` references the `Identifier` of the custom `TagKey<Item>`
    - The `texture` references a texture resource to use for the icon. This should be a 16x16 image.
-3. Make sure there is an entry for the custom enchantment in the [file](./src/main/resources/data/minecraft/tags/enchantment/tooltip_order.json) `resources/data/minecraft/tags/enchantment/tooltip_order.json`
-   - This is a vanilla data file that determines the ordering of the enchantments within the tooltip. The custom icon is only shown, if the enchantment is registered there
 
 ![Preview of a custom applicable to icon](./doc/custom_icon.gif)
 

@@ -1,6 +1,6 @@
 [
   {
-    "enchantment": "enchantment.interactive_enchanted_books_example.example_enchantment",
+    "enchantment": "interactive_enchanted_books_example:example_enchantment",
     "parameters": [
       [
         /* Enchantment level */
