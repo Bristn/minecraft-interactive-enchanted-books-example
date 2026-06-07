@@ -7,6 +7,7 @@ import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.entity.ChiseledBookShelfBlockEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 
@@ -21,12 +22,19 @@ public class ExampleParticle extends SimpleAnimatedParticle {
     private static LifetimeAlpha endFade = new LifetimeAlpha(0.70f, 0.0f, 0.8f, 1.0f);
 
     public ExampleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-            SpriteSet sprites) {
+            SpriteSet sprites, int bookCount) {
 
-        super(level, x, y, z, sprites, 0.0125f);
+        var maxCount = ChiseledBookShelfBlockEntity.MAX_BOOKS_IN_STORAGE;
+        var gravityFactor = maxCount / Math.clamp(bookCount, 1, maxCount);
+        var gravity = 0.002f * gravityFactor;
 
-        // Set the lifetime in ticks (3 - 5 seconds)
-        this.lifetime = 3 * 20 + this.random.nextInt(40);
+        super(level, x, y, z, sprites, gravity);
+
+        // Set the lifetime in ticks based on the chiseled book count
+        // Min time: 3 seconds
+        // Max time: ~11 seconds
+        var lifetimeFactor = Math.log(bookCount + 1) * 1.5f;
+        this.lifetime = (int) ((3 * 20) * lifetimeFactor + this.random.nextInt(40));
         this.setSprite(sprites.get(random));
 
         // Randomly alternate the alpha by 0.8 to 1.0
@@ -37,17 +45,16 @@ public class ExampleParticle extends SimpleAnimatedParticle {
         this.zSpeed = zSpeed;
 
         // Similar sizing to the default enchantment particles
-        var size = 0.125f * (this.random.nextFloat() * 0.5f + 0.2f);
+        var size = 0.25f * (this.random.nextFloat() * 0.5f + 0.2f);
         this.quadSize = size;
         this.setSize(size, size);
         this.setAlpha(startFade.startAlpha());
     }
 
     protected ExampleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed,
-            SpriteSet sprites, float r, float g, float b) {
+            SpriteSet sprites, float r, float g, float b, int bookCount) {
 
-        this(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites);
-
+        this(level, x, y, z, xSpeed, ySpeed, zSpeed, sprites, bookCount);
         this.setColor(r, g, b);
     }
 
@@ -95,7 +102,15 @@ public class ExampleParticle extends SimpleAnimatedParticle {
         public Particle createParticle(SimpleParticleType options, ClientLevel level, double x, double y, double z, double xSpeed,
                 double ySpeed, double zSpeed, RandomSource random) {
 
-            return new ExampleParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprites, red, green, blue);
+            // Decodes the book count of the y speed. The hundred digit being used as the book count
+            // The resulting speed can still be negative
+            // ! Is used, as the regular createParticle does not allow for custom properties and using separate
+            // ! providers for each book count would require each enchantment to define 5 particle variants
+            int sign = (int) Math.signum(ySpeed);
+            int bookCount = (int) Math.floor(sign * (ySpeed / 100));
+            var decodedSpeed = ySpeed % 100.0;
+
+            return new ExampleParticle(level, x, y, z, xSpeed, decodedSpeed, zSpeed, this.sprites, red, green, blue, bookCount);
         }
     }
 }

@@ -76,4 +76,6 @@ If no particle effect is given, the default enchantment particle is used. To add
 2. In the enchantment you which to modify the particle of, add the `particle` property
    - The value of this property is the `Identifier` of any particle effect
 
+As the lifetime of the emitted particles is based on the book count of nearby chiseled bookshelves and there is no way of easily adding a custom attribute to the particle constructor, the book count is encoded in the z velocity of the particle. See [ExampleParticle](./src/client/java/net/bristn/interactive_enchanted_books_example/particle/ExampleParticle.java) for the decoding logic. **This mus be implemented if a custom particle is used**
+
 ![Preview of a custom particle effect](./doc/custom_particle.gif)
